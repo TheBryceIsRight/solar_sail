@@ -7,8 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Link from 'next/link';
-import UseFigmaAPI from '../src/components/useFigmaAPI';
-
+import UseFigmaAPI from '../src/components/UseFigmaAPI';
 
 const initialValues: LoginDetail = {
 email: "",

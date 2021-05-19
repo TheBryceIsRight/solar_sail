@@ -25,5 +25,5 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+, "src/pages/api/figma_login.js", "src/components/UseFigmaAPI.js"  ]
 }
