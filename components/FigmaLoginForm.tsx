@@ -7,6 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Link from 'next/link';
+import UseFigmaAPI from '../src/components/useFigmaAPI';
 
 
 const initialValues: LoginDetail = {
@@ -36,14 +37,8 @@ export default function FigmaLoginForm() {
 
     const [message, setMessage] = useState<any>(null);
     async function handleLogin(email:string, password:string) {
-      const resp = await fetch('http://localhost:3000/api/figma_login', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Figma-Token': '190114-46a6f35c-d869-4e2e-8663-5a33f8c38a96'
-        }
-      });
-      const json = await resp.json();
+      const resp = await UseFigmaAPI();
+      const json = resp.data;
       setMessage(json);
       console.log(json.message);
       if (json.message === 'Welcome back!') {
