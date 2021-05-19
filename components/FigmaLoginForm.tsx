@@ -55,6 +55,7 @@ export default function FigmaLoginForm() {
       const url = `https://www.figma.com/oauth?client_id=:LP0W6v8LjJ0MVonK3Ct0AT&redirect_uri=:https://solar-sail-chi.vercel.app/Figma&scope=file_read&state=:0e900be10ac54e6abf4b38f8b21a189b&response_type=code`;
       const resp = await fetch(url, {
         method: 'GET',
+        mode: 'no-cors', // no-cors
         headers: {
           'Content-Type': 'application/json',
           'X-Figma-Token': '190114-46a6f35c-d869-4e2e-8663-5a33f8c38a96'
