@@ -7,7 +7,23 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Link from 'next/link';
-import UseFigmaAPI from '../src/components/UseFigmaAPI';
+import axios from "axios";
+
+// async function FigmaLogin(req, res) {
+//   const state = '0e900be10ac54e6abf4b38f8b21a189b';
+//   const url = `https://www.figma.com/oauth?client_id=:LP0W6v8LjJ0MVonK3Ct0AT&redirect_uri=:https://solar-sail-chi.vercel.app/Figma&scope=file_read&state=:0e900be10ac54e6abf4b38f8b21a189b&response_type=code`;
+//   const xFigmaToken = '190114-46a6f35c-d869-4e2e-8663-5a33f8c38a96';
+
+//   await axios
+//     .get(url)
+//     .then(({ data }) => {
+//       res.status(200).json({ data })
+//     })
+//     .catch(({ err }) => {
+//       res.status(400).json({ err })
+//     })
+// }
+
 
 const initialValues: LoginDetail = {
 email: "",
@@ -35,12 +51,19 @@ export default function FigmaLoginForm() {
     const [errorOpen, setErrorOpen] = React.useState(false);
 
     const [message, setMessage] = useState<any>(null);
-    async function handleLogin(email:string, password:string) {
-      const resp = await UseFigmaAPI();
-      const json = resp.data;
+    async function handleLogin() {
+      const url = `https://www.figma.com/oauth?client_id=:LP0W6v8LjJ0MVonK3Ct0AT&redirect_uri=:https://solar-sail-chi.vercel.app/Figma&scope=file_read&state=:0e900be10ac54e6abf4b38f8b21a189b&response_type=code`;
+      const resp = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Figma-Token': '190114-46a6f35c-d869-4e2e-8663-5a33f8c38a96'
+        }
+      });
+      const json = await resp.json();
       setMessage(json);
       console.log(json.message);
-      if (json.message === 'Welcome back!') {
+      if (!json.message) {
         setOpen(true);
       } else {
         setErrorOpen(true);
@@ -77,7 +100,7 @@ export default function FigmaLoginForm() {
             setTimeout(() => {
               console.log(values);
               console.log("Firing API call")
-              handleLogin( values.email, values.password)
+              handleLogin()
               res("onSubmitHandler complete");
             }, 2000);
           })
